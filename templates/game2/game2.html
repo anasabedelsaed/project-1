@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>حجر ورقة مقص</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f4f9; }
+        .card { background: white; padding: 20px; border-radius: 10px; display: inline-block; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .btn { font-size: 24px; padding: 10px 20px; margin: 10px; cursor: pointer; border: 1px solid #ccc; border-radius: 8px; }
+        #result { font-size: 20px; margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>لعبة حجر ورقة مقص</h2>
+        <div>
+            <button class="btn" onclick="play('rock')">حجر 🪨</button>
+            <button class="btn" onclick="play('paper')">ورقة 📄</button>
+            <button class="btn" onclick="play('scissors')">مقص ✂️</button>
+        </div>
+        <div id="result">اختر حركتك لبدء اللعب</div>
+    </div>
+
+    <script>
+        function play(userChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+            let resText = "";
+
+            if (userChoice === computerChoice) {
+                resText = "تعادل!";
+            } else if (
+                (userChoice === 'rock' && computerChoice === 'scissors') ||
+                (userChoice === 'paper' && computerChoice === 'rock') ||
+                (userChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                resText = "فزت أنت! 🎉";
+            } else {
+                resText = "فاز الكمبيوتر! 💻";
+            }
+
+            document.getElementById("result").innerHTML = 
+                `اختيارك: <b>${userChoice}</b> | اختيار الكمبيوتر: <b>${computerChoice}</b><br><br>${resText}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>إكس أوه Tic-Tac-Toe</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 40px; background-color: #f4f4f9; }
+        .board { display: grid; grid-template-columns: repeat(3, 90px); gap: 5px; justify-content: center; margin-top: 15px; }
+        .cell { width: 90px; height: 90px; font-size: 32px; background: white; border: 2px solid #333; cursor: pointer; border-radius: 5px; }
+        #status { font-size: 20px; margin-top: 15px; font-weight: bold; }
+        .reset-btn { margin-top: 15px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>لعبة Tic-Tac-Toe</h2>
+    <div id="status">دور اللاعب: X</div>
+    <div class="board" id="board">
+        <button class="cell" onclick="makeMove(this, 0)"></button>
+        <button class="cell" onclick="makeMove(this, 1)"></button>
+        <button class="cell" onclick="makeMove(this, 2)"></button>
+        <button class="cell" onclick="makeMove(this, 3)"></button>
+        <button class="cell" onclick="makeMove(this, 4)"></button>
+        <button class="cell" onclick="makeMove(this, 5)"></button>
+        <button class="cell" onclick="makeMove(this, 6)"></button>
+        <button class="cell" onclick="makeMove(this, 7)"></button>
+        <button class="cell" onclick="makeMove(this, 8)"></button>
+    </div>
+    <button class="reset-btn" onclick="resetBoard()">إعادة اللعبة</button>
+
+    <script>
+        let gameState = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let isGameActive = true;
+
+        const winConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        function makeMove(btn, index) {
+            if (gameState[index] !== "" || !isGameActive) return;
+
+            gameState[index] = currentPlayer;
+            btn.innerText = currentPlayer;
+
+            if (checkWin()) {
+                document.getElementById("status").innerText = `الفائز هو: ${currentPlayer} 🎉`;
+                isGameActive = false;
+            } else if (!gameState.includes("")) {
+                document.getElementById("status").innerText = "تعادل!";
+                isGameActive = false;
+            } else {
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                document.getElementById("status").innerText = `دور اللاعب: ${currentPlayer}`;
+            }
+        }
+
+        function checkWin() {
+            return winConditions.some(condition => {
+                return condition.every(index => gameState[index] === currentPlayer);
+            });
+        }
+
+        function resetBoard() {
+            gameState = ["", "", "", "", "", "", "", "", ""];
+            currentPlayer = "X";
+            isGameActive = true;
+            document.getElementById("status").innerText = "دور اللاعب: X";
+            document.querySelectorAll(".cell").forEach(cell => cell.innerText = "");
+        }
+    </script>
+</body>
+</html>

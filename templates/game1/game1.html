@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>لعبة تخمين الرقم</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f4f4f9;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input,
+        button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>لعبة تخمين الرقم (1 - 100)</h2>
+        <input type="number" id="guessInput" min="1" max="100" placeholder="أدخل رقمك">
+        <button onclick="checkGuess()">تخمين</button>
+        <button onclick="resetGame()">إعادة اللعب</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        let secretNum = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            let guess = Number(document.getElementById("guessInput").value);
+            let msg = document.getElementById("message");
+            attempts++;
+
+            if (!guess || guess < 1 || guess > 100) {
+                msg.innerText = "الرجاء إدخال رقم صحيح بين 1 و 100";
+            } else if (guess < secretNum) {
+                msg.innerText = "الرقم أصغر من المطلوب! حاول مرة أخرى.";
+            } else if (guess > secretNum) {
+                msg.innerText = "الرقم أكبر من المطلوب! حاول مرة أخرى.";
+            } else {
+                msg.innerText = `مبروك! الإجابة صحيحة (${secretNum}). عدد المحاولات: ${attempts}`;
+            }
+        }
+
+        function resetGame() {
+            secretNum = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById("message").innerText = "";
+            document.getElementById("guessInput").value = "";
+        }
+    </script>
+</body>
+
+</html>
