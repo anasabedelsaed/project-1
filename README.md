@@ -1,4 +1,4 @@
-# project-1
+# project-1_task 1
 project with 3 games
 # 🎮 Django Web Games Suite
 
